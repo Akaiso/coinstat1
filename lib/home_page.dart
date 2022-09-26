@@ -13,6 +13,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   double? _deviceHeight, _deviceWidth;
+  String? _selectedCoin = 'bitcoin';
   HTTPService? _http;
 
   @override
@@ -56,14 +57,18 @@ class _HomePageState extends State<HomePage> {
               e,
               style: const TextStyle(
                   color: Colors.white,
-                  fontSize: 40,
-                  fontWeight: FontWeight.w600),
+                  fontSize: 25,
+                  fontWeight: FontWeight.w400),
             )))
         .toList();
     return DropdownButton(
-      value: _coins.first,
+      value: _selectedCoin,
       items: _items,
-      onChanged: (_value) {},
+      onChanged: (dynamic _value) {
+        setState(() {
+          _selectedCoin = _value;
+        });
+      },
       dropdownColor: const Color.fromRGBO(83, 88, 206, 1.0),
       iconSize: 30,
       icon: const Icon(
@@ -76,7 +81,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget _dataWidgets() {
     return FutureBuilder(
-      future: _http?.get("/coins/bitcoin"),
+      future: _http?.get("/coins/$_selectedCoin"),
       builder: (BuildContext _context, AsyncSnapshot _snapshot) {
         if (_snapshot.hasData) {
           Map _data = jsonDecode(_snapshot.data.toString());
@@ -121,23 +126,33 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+
+
   Widget _coinImageWidget(String _imageURL) {
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: _deviceHeight! * 0.02),
-      height: _deviceHeight! * 0.15,
-      width: _deviceWidth! * 0.15,
-      decoration:
-           const BoxDecoration(image: DecorationImage(image: NetworkImage("_imageURL") ),
-          ),
+    return CircleAvatar(
+      child: Image.network(_imageURL,fit: BoxFit.cover,
+        loadingBuilder:( context,  child, loadingProgress) {
+          if (loadingProgress == null) return child;
+          return Center(
+            child: CircularProgressIndicator(
+              value: loadingProgress.expectedTotalBytes != null ?
+              loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
+                  : null,
+            ),
+          );
+        },
+      ),
     );
   }
 
   Widget _coinDescriptionWidget(String _description){
-    return Container(margin: EdgeInsets.all(20),decoration: BoxDecoration(borderRadius: BorderRadius.circular(15), color: Color.fromRGBO(103, 88, 206, 0.9)),
+    return Container(margin: const EdgeInsets.all(20),decoration: BoxDecoration(borderRadius: BorderRadius.circular(15), color: Color.fromRGBO(103, 88, 206, 0.9)),
       child: Padding(
         padding: const EdgeInsets.all(30.0),
-        child: Text(_description, style: TextStyle(color: Colors.white70),),
+        child: Text(_description, style: const TextStyle(color: Colors.white70),),
       ),
     );
   }
+
+
 }

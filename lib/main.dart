@@ -32,6 +32,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'benson akaiso\'s coinstat',
       theme: ThemeData(
         scaffoldBackgroundColor: const Color.fromRGBO(88, 60, 197, 1.0),

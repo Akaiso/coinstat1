@@ -36,7 +36,7 @@ class _HomePageState extends State<HomePage> {
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(height: 30),
+                const SizedBox(height: 30),
 
                 _selectedCoinDropdown()!,
                 _dataWidgets(),
@@ -49,7 +49,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget? _selectedCoinDropdown() {
-    List<String> _coins = ["bitcoin", "Ethereum", "LiteCoin", "Dodge", ];
+    List<String> _coins = ["bitcoin", "ethereum", "litecoin", "dodge", ];
     List<DropdownMenuItem<String>> _items = _coins
         .map((e) => DropdownMenuItem(
             value: e,

@@ -1,8 +1,5 @@
 
 
-
-
-
 import 'package:coinstat/calculator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -17,7 +14,7 @@ void main(){
     //act
     calculateArea(circumference, pie);
     //assert
-    expect(circumference * pie, 674.0);
+   expect(circumference * pie, 674.0);
   });
 
   test("check if multiplication works", (){

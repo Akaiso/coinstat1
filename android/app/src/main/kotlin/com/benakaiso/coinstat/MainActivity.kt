@@ -1,4 +1,4 @@
-package com.benakaiso.coinstat
+//package com.benakaiso.coinstat
 
 import io.flutter.embedding.android.FlutterActivity
 

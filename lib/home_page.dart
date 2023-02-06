@@ -37,7 +37,6 @@ class _HomePageState extends State<HomePage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const SizedBox(height: 30),
-
                 _selectedCoinDropdown()!,
                 _dataWidgets(),
               ],
@@ -49,7 +48,12 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget? _selectedCoinDropdown() {
-    List<String> _coins = ["bitcoin", "ethereum", "litecoin", "dodge", ];
+    List<String> _coins = [
+      "bitcoin",
+      "ethereum",
+      "litecoin",
+      "doge",
+    ];
     List<DropdownMenuItem<String>> _items = _coins
         .map((e) => DropdownMenuItem(
             value: e,
@@ -126,17 +130,18 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-
-
   Widget _coinImageWidget(String _imageURL) {
     return CircleAvatar(
-      child: Image.network(_imageURL,fit: BoxFit.cover,
-        loadingBuilder:( context,  child, loadingProgress) {
+      child: Image.network(
+        _imageURL,
+        fit: BoxFit.cover,
+        loadingBuilder: (context, child, loadingProgress) {
           if (loadingProgress == null) return child;
           return Center(
             child: CircularProgressIndicator(
-              value: loadingProgress.expectedTotalBytes != null ?
-              loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
+              value: loadingProgress.expectedTotalBytes != null
+                  ? loadingProgress.cumulativeBytesLoaded /
+                      loadingProgress.expectedTotalBytes!
                   : null,
             ),
           );
@@ -145,14 +150,19 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _coinDescriptionWidget(String _description){
-    return Container(margin: const EdgeInsets.all(20),decoration: BoxDecoration(borderRadius: BorderRadius.circular(15), color: Color.fromRGBO(103, 88, 206, 0.9)),
+  Widget _coinDescriptionWidget(String _description) {
+    return Container(
+      margin: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15),
+          color: Color.fromRGBO(103, 88, 206, 0.9)),
       child: Padding(
         padding: const EdgeInsets.all(30.0),
-        child: Text(_description, style: const TextStyle(color: Colors.white70),),
+        child: Text(
+          _description,
+          style: const TextStyle(color: Colors.white70),
+        ),
       ),
     );
   }
-
-
 }
